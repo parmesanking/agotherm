@@ -1,5 +1,4 @@
-import config from "config";
-import moment from 'moment'
+import moment from "moment";
 export default class Chrono {
   week = Array(6);
   constructor() {
@@ -13,7 +12,8 @@ export default class Chrono {
   }
 
   loadConf() {
-    let conf = config.get("chrono");
+    delete require.cache[require.resolve("config")];
+    let conf = require("config").get("chrono");
     //applying temperatures set
     conf.week.forEach(day => {
       day.ranges.forEach(range => {
@@ -34,7 +34,8 @@ export default class Chrono {
   }
 
   getTemperatureFromMode(mode) {
-    let temperatures = config.get("thermo");
+    delete require.cache[require.resolve("config")];
+    let temperatures = require("config").get("thermo");
     switch (mode.toUpperCase()) {
       case "H":
         return temperatures.highTemp;
@@ -45,8 +46,11 @@ export default class Chrono {
     }
   }
 
-  getTargetTemperature(){
-      let t = moment()
-      return this.week[parseInt(t.format('d'))][parseInt(t.format('H')) * 60 + parseInt(t.format('m'))]
+  getTargetTemperature() {
+    this.loadConf();
+    let t = moment();
+    return this.week[parseInt(t.format("d"))][
+      parseInt(t.format("H")) * 60 + parseInt(t.format("m"))
+    ];
   }
 }

@@ -12,6 +12,10 @@
         "ranges":[
             { "at":600, "duration": 60, "mode": "H"  }
         ]}, 
+        {"day": 1,
+            "ranges":[
+                { "at":1020, "duration": 60, "mode": "H" }
+            ]}, 
         {"day": 2,
             "ranges":[
                 { "at": 10, "duration": 20, "mode": "H"  }
