@@ -4,7 +4,7 @@
   "description": "My personal clima control",
   "main": "index.js",
   "scripts": {
-    "start": "node --inspect --harmony index.js",
+    "start": "nodemon --inspect --harmony index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -2,6 +2,7 @@ import { Gpio } from "onoff";
 
 class Relay extends Gpio {
   constructor(pin, mode) {
+    console.log(`Creating relay on pin: #${pin} mode: ${mode}`)
     super(pin.mode);
     this.normallyClosed = mode === 'low'
   }
@@ -13,8 +14,12 @@ class Relay extends Gpio {
 
   off = () => {
     this.writeSync(normallyClosed ? 0 : 1)
-    console.log("ON");
+    console.log("OFF");
   };
+
+  read = () => {
+    return this.readSync()
+  }
 }
 
 export default Relay;

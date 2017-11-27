@@ -1,13 +1,15 @@
 
 /*import Relay from './src/relay'
 
-let relay = new Relay(17, 'out')
+
 relay.on()
 */
 
 import   ThermoBrain   from './src/ThermoBrain.js'
+import config from 'config'
 
-console.log("pippo")
+global.CONF = config
+
 
 let thermo = new ThermoBrain();
 
