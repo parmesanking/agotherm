@@ -4,7 +4,7 @@ export default class ThermoBrain {
   constructor() {
     console.log("Starting ThermoBrain.");
     this.chrono = new Chrono();
-    let relay = new Relay(global.CONF.get('thermo').relayid, global.CONF.get('thermo').relayMode )
+    this.relay = new Relay(global.CONF.get('thermo').relayid, global.CONF.get('thermo').relayMode )
     console.log("Weekly chrono setup from configuration...");
   }
 

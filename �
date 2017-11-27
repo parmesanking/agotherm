@@ -7,12 +7,12 @@ class Relay extends Gpio {
     this.normallyClosed = mode === 'low'
   }
 
-  on = () => {
+  on() {
     this.writeSync(normallyClosed ? 1 : 0)
     console.log("ON");
   };
 
-  off = () => {
+  off() {
     this.writeSync(normallyClosed ? 0 : 1)
     console.log("OFF");
   };
