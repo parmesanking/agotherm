@@ -2,7 +2,7 @@ import Chrono from './Chrono'
 import Relay from './Relay'
 import SysLogger from 'ain2';
 
-console = new SysLogger();
+let console = new SysLogger();
 
 export default class ThermoBrain {
   constructor() {
@@ -22,7 +22,7 @@ export default class ThermoBrain {
       let targetTemp = this.chrono.getTargetTemperature()      
       console.log("Run: -> ", targetTemp, " ", Date());
       parseInt(targetTemp) > 20 ? this.relay.on() : this.relay.off()
-      console.log("Current val: " & this.relay.read())
+      console.log("Current val: " & this.relay.status())
 
    }
   }

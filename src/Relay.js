@@ -1,7 +1,7 @@
 import { Gpio } from "onoff";
 import SysLogger from 'ain2';
 
-console = new SysLogger();
+let console = new SysLogger();
 
 class Relay extends Gpio {
   constructor(pin, mode) {
@@ -21,9 +21,14 @@ class Relay extends Gpio {
     console.log("OFF");
   };
 
-  read = () => {
-    return this.readSync()
-  }
+  status = () => {
+    this.read((err, val) => {
+	if (err) {
+		console.err(err)
+	}
+	return val
+	}
+) }
 }
 
 export default Relay;

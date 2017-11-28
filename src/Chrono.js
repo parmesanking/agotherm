@@ -1,7 +1,7 @@
 import moment from "moment";
 import SysLogger from 'ain2';
 
-console = new SysLogger();
+let console = new SysLogger();
 
 export default class Chrono {
   week = Array(6);

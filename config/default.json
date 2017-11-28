@@ -4,7 +4,7 @@
     "relayMode": "low",
     "iceTemp": 7,
     "lowTemp": 17,
-    "highTemp": 21
+    "highTemp": 22
   },
   "chrono": {
     "week": [
@@ -18,7 +18,7 @@
       },
       {
         "day": 2,
-        "ranges": [{ "at": 960, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 900, "duration": 379, "mode": "H" }]
       },
       {
         "day": 3,
