@@ -1,5 +1,9 @@
 import Chrono from './Chrono'
 import Relay from './Relay'
+import SysLogger from 'ain2';
+
+console = new SysLogger();
+
 export default class ThermoBrain {
   constructor() {
     console.log("Starting ThermoBrain.");
