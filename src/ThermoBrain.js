@@ -22,7 +22,7 @@ export default class ThermoBrain {
       let targetTemp = this.chrono.getTargetTemperature()      
       console.log("Run: -> ", targetTemp, " ", Date());
       parseInt(targetTemp) > 20 ? this.relay.on() : this.relay.off()
-      console.log("Current val: " & this.relay.status())
+      console.log("Current val: " , this.relay.status())
 
    }
   }

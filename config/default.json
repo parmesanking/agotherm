@@ -18,11 +18,12 @@
       },
       {
         "day": 2,
-        "ranges": [{ "at": 900, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 960, "duration": 479, "mode": "H" }]
       },
       {
         "day": 3,
-        "ranges": [{ "at": 960, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 300, "duration": 40, "mode": "H" },
+			{ "at": 960, "duration": 379, "mode": "H" }]
       },
       {
         "day": 4,
