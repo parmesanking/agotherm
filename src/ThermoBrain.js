@@ -1,6 +1,8 @@
 import Chrono from './Chrono'
 import Relay from './Relay'
 import SysLogger from 'ain2';
+import tempDev from 'ds18b20';
+import config from 'config';
 
 let console = new SysLogger();
 
@@ -14,15 +16,30 @@ export default class ThermoBrain {
 
   chrono = null;;
   relay = null
+  tempBuffer = []
 
-  intervalObj = setInterval(() => this.run(), 10000);
-
+  intervalObj = setInterval(() => this.run(), global.CONF.get('chrono').temperaturePoolTime );
+  
   run(){
     if (this.chrono) {
       let targetTemp = this.chrono.getTargetTemperature()      
       console.log("Run: -> ", targetTemp, " ", Date());
-      parseInt(targetTemp) > 20 ? this.relay.on() : this.relay.off()
-      console.log("Current val: " , this.relay.status())
+     
+      let tempBufLength = (global.CONF.get('chrono').temperatureBufferMinutes * 60)  / (global.CONF.get('chrono').temperaturePoolTime / 1000)
+      let currTemp = tempDev.temperatureSync(config.get('thermo.thermo_id'))
+      if (this.tempBuffer.length >= tempBufLength){
+      	this.tempBuffer.shift()
+      }
+      this.tempBuffer.push(currTemp)      
+
+      let avgTemp = this.tempBuffer.reduce((a, b) => ( a + b)) / this.tempBuffer.length
+      let recentItems = this.tempBuffer.slice(parseInt(this.tempBuffer.length/2)) 
+      let avgTempRec = recentItems.reduce((a, b) => ( a + b)) / recentItems.length
+console.log(recentItems.length)
+console.log(avgTempRec)
+      let tempRaising = avgTempRec >= avgTemp
+      targetTemp >= avgTempRec ? this.relay.on() : this.relay.off()
+      console.log("Current stat: " , this.relay.status(), " temp: ", currTemp, " avg: ", avgTemp, tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595))
 
    }
   }

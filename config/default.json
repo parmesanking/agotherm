@@ -4,39 +4,51 @@
     "relayMode": "low",
     "iceTemp": 7,
     "lowTemp": 17,
-    "highTemp": 22
+    "highTemp": 21.1,
+    "thermo_id": "28-051673d70aff"
   },
   "chrono": {
+    "temperatureBufferMinutes": 10,  	
+    "temperaturePoolTime": 10000,  	
     "week": [
       {
         "day": 0,
-        "ranges": [{ "at": 960, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 360, "duration": 45, "mode": "H" },
+        { "at": 0, "duration": 1440, "mode": "H" }]
       },
       {
         "day": 1,
-        "ranges": [{ "at": 960, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 300, "duration": 40, "mode": "H" },
+        { "at": 945, "duration": 475, "mode": "H" }]
       },
       {
         "day": 2,
-        "ranges": [{ "at": 960, "duration": 479, "mode": "H" }]
+        "ranges": [{ "at": 330, "duration": 40, "mode": "H" },
+        { "at":480, "duration": 800, "mode": "H" }]
       },
       {
         "day": 3,
         "ranges": [{ "at": 300, "duration": 40, "mode": "H" },
-			{ "at": 960, "duration": 379, "mode": "H" }]
+			{ "at": 810, "duration": 120, "mode": "H" },
+			{ "at": 930, "duration": 500, "mode": "H" }]
       },
       {
         "day": 4,
-        "ranges": [{ "at": 960, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 360, "duration": 40, "mode": "H" },
+{ "at": 1050, "duration": 60, "mode": "H" },
+			{ "at": 1360, "duration": 80, "mode": "H" }]
       },
       {
         "day": 5,
-        "ranges": [{ "at": 960, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 0, "duration": 60, "mode": "H" },
+        { "at": 420, "duration": 720, "mode": "H" },
+        { "at": 960, "duration": 379, "mode": "H" }]
       },
 
       {
         "day": 6,
-        "ranges": [{ "at": 960, "duration": 379, "mode": "H" }]
+        "ranges": [{ "at": 0, "duration": 0, "mode": "H" },
+        { "at": 1080, "duration": 360, "mode": "H" }]
       }
     ]
   }
