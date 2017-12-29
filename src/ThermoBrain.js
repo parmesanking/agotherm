@@ -4,8 +4,10 @@ import SysLogger from "ain2";
 import tempDev from "ds18b20";
 import config from "config";
 import moment from 'moment'
+import debug from 'debug'
 
 let console = new SysLogger();
+debug.log = console.info.bind(console);
 
 export default class ThermoBrain {
   constructor() {
@@ -34,7 +36,7 @@ export default class ThermoBrain {
   run() {
     if (this.chrono) {
       let targetTemp = this.chrono.getTargetTemperature();
-      debug("Run: -> ", targetTemp, " ", Date());
+      debug(`Run: -> $targetTemp $Date()`);
 
       let tempBufLength =
         global.CONF.get("chrono").temperatureBufferMinutes *
@@ -56,17 +58,10 @@ export default class ThermoBrain {
       debug(avgTempRec);
       let tempRaising = avgTempRec >= avgTemp;
       targetTemp >= avgTempRec ? this.relay.on() : this.relay.off();
-      debug(
-        "Current stat: ",
-        this.relay.status(),
-        " temp: ",
-        currTemp,
-        " avg: ",
-        avgTemp,
-        tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595)
-      );
+      debug(`Current stat: $this.relay.status() temp: $currTemp avg: $avgTemp $(tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595))`);
+      console.log(`Current stat: ${this.relay.status()} temp: ${currTemp} avg: ${avgTemp} ${(tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595))}`);
 
-      this.currentTemperature = currentTemp
+      this.currentTemperature = currTemp
       this.status = this.relay.status(),
       this.lastCheckOn = moment()
 
