@@ -1,7 +1,9 @@
 import moment from "moment";
 import SysLogger from "ain2";
+import debug from 'debug'
 
 let console = new SysLogger();
+debug.log = console.info.bind(console);
 
 export default class Chrono {
   week = Array(6);
@@ -57,6 +59,7 @@ export default class Chrono {
   }
 
   manual(value) {
+    console.log(`Manual ovverride: ${value}`)
     let t = moment();
     let curStat = this.week[parseInt(t.format("d"))][
       parseInt(t.format("H")) * 60 + parseInt(t.format("m"))
@@ -66,11 +69,14 @@ export default class Chrono {
       i < 1440;
       i++
     ) {
+      //console.log(`w:${parseInt(t.format("d"))} m:${i} s:${curStat}`)
       if (this.week[parseInt(t.format("d"))][i] != curStat) {
+        console.log(`Set until: ${i}`)
         break;
       } else {
-        this.week[parseInt(t.format("d"))][i] = value ? "H" : "L";
+        this.week[parseInt(t.format("d"))][i] = this.getTemperatureFromMode(value === 'true' ? "H" : "L");
       }
     }
   }
 }
+
