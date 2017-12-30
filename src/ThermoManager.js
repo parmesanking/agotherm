@@ -6,5 +6,7 @@ export function getStatus(req, res){
 
 
 export function manual(req, res){
-    res.send(req.params.command)
+    
+    global.THERMO.manual(req.params.command)
+    res.send(true)
 }

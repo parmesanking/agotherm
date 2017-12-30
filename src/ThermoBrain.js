@@ -67,4 +67,10 @@ export default class ThermoBrain {
 
     }
   }
+
+  manual(value){
+    if (this.chrono){
+      this.chrono.manual(value)
+    }
+  }
 }

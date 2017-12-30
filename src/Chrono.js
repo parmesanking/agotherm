@@ -1,5 +1,5 @@
 import moment from "moment";
-import SysLogger from 'ain2';
+import SysLogger from "ain2";
 
 let console = new SysLogger();
 
@@ -54,5 +54,23 @@ export default class Chrono {
     return this.week[parseInt(t.format("d"))][
       parseInt(t.format("H")) * 60 + parseInt(t.format("m"))
     ];
+  }
+
+  manual(value) {
+    let t = moment();
+    let curStat = this.week[parseInt(t.format("d"))][
+      parseInt(t.format("H")) * 60 + parseInt(t.format("m"))
+    ];
+    for (
+      let i = parseInt(t.format("H")) * 60 + parseInt(t.format("m"));
+      i < 1440;
+      i++
+    ) {
+      if (this.week[parseInt(t.format("d"))][i] != curStat) {
+        break;
+      } else {
+        this.week[parseInt(t.format("d"))][i] = value ? "H" : "L";
+      }
+    }
   }
 }
