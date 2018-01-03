@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "Agotherm",
+    "icon": "./controls/images/fire-station.png",
+    "version": "1.0.0",
+    "slug": "agotherm",
+    "sdkVersion": "23.0.0",
+    "ios": {
+      "bundleIdentifier": "com.parmesanking.agotherm"
+    },
+    "android": {
+      "package": "com.parmesanking.agotherm"
+    }
+   }
+}
