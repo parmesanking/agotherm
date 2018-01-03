@@ -29,6 +29,8 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 
 app.route('/status').get(ThermoMGR.getStatus);
+app.route('/setweek').put(ThermoMGR.setWeek);
+app.route('/conf').get(ThermoMGR.getConf);
 app.route('/manual/:command').post(ThermoMGR.manual);
 
 const PORT = process.env.PORT || 3000;
