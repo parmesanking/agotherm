@@ -14,13 +14,15 @@ export function setWeek(req, res){
     let week = req.body
     nconf.file({ file: __dirname +'/../config/default.json' });
     nconf.set('chrono:week', week.week.sort((a, b) => a.day > b.day))	
-    nconf.save( err => {
-    if (err == null){
-        res.send(true)
-    }else{
-        console.log(err)
-    }
-    })
+    res.send(true)
+    setTimeout(() => {
+        nconf.save( err => {
+            if (err == null){
+            }else{
+                console.log(err)
+            }
+        })}
+        , 10000)
 }
 
 export function manual(req, res){
