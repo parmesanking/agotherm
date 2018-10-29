@@ -1,4 +1,3 @@
-import nconf from "nconf";
 import db from "./LevelManager";
 
 export function getStatus(req, res) {
@@ -10,7 +9,11 @@ export function getStatus(req, res) {
 }
 
 export function getConf(req, res) {
-  res.send({ conf: global.CONF, week: global.THERMO.week });
+  db.getLevelDBData("ChronoWeek").then(value => {
+    let conf = JSON.parse(value);
+    res.send({ conf: global.CONF, week: conf.week });
+})
+  
 }
 
 export function setWeek(req, res) {

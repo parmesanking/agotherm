@@ -39,7 +39,10 @@ export default class Chrono {
           }
         })
       );
-    });
+    }).catch(err=> {
+      console.log("Configuration doesn't exist, creating a new one")
+      db.addLevelDBData("ChronoWeek"), config.get("chrono")
+    })
   }
 
   getTemperatureFromMode(mode) {
