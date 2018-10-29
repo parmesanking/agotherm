@@ -9,27 +9,26 @@ export function getStatus(req, res) {
 }
 
 export function getConf(req, res) {
-  db.getLevelDBData("ChronoWeek").then(value => {
+  db.getLevelDBData("Chrono").then(value => {
     let conf = JSON.parse(value);
-    res.send({ conf: global.CONF, week: conf.week });
+    res.send({ conf: conf, week: conf.chrono.week });
 })
   
 }
 
 export function setWeek(req, res) {
-  db.getLevelDBData("ChronoWeek").then(value => {
+  db.getLevelDBData("Chrono").then(value => {
     let conf = JSON.parse(value);
     let week = req.body;
-    conf.week = week.week.sort((a, b) => a.day > b.day);
-    db.addDataToLevelDB("ChronoWeek", JSON.stringify(conf).then(res => {
-      if (res.success) {
+    conf.chrono.week = week.week.sort((a, b) => a.day > b.day);
+    db.addLevelDBData("Chrono", JSON.stringify(conf)).then(result => {
+      if (result.success) {
         res.send(true);
       } else {
         res.status(500).send("Unable to store new configuration");
       }
     });
 
-    res.send(true);
   });
 }
 

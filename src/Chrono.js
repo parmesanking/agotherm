@@ -20,11 +20,11 @@ export default class Chrono {
   }
 
   loadConf() {
-    db.getLevelDBData("ChronoWeek")
+    db.getLevelDBData("Chrono")
       .then(value => {
         let conf = JSON.parse(value);
         //applying temperatures set
-        conf.week.forEach(day => {
+        conf.chrono.week.forEach(day => {
           day.ranges.forEach(range => {
             for (let i = range.at; i < range.at + range.duration; i++) {
               this.week[day.day][i] = this.getTemperatureFromMode(range.mode);
@@ -43,7 +43,7 @@ export default class Chrono {
       })
       .catch(err => {
         console.log("Configuration doesn't exist, creating a new one");
-        db.addLevelDBData("ChronoWeek", JSON.stringify(global.CONF.get("chrono")));
+        db.addLevelDBData("Chrono", JSON.stringify(global.CONF));
       });
   }
 
