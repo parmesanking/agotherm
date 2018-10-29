@@ -20,29 +20,31 @@ export default class Chrono {
   }
 
   loadConf() {
-    db.getLevelDBData("ChronoWeek").then(value => {
-      let conf = JSON.parse(value);
-      //applying temperatures set
-      conf.week.forEach(day => {
-        day.ranges.forEach(range => {
-          for (let i = range.at; i < range.at + range.duration; i++) {
-            this.week[day.day][i] = this.getTemperatureFromMode(range.mode);
-          }
+    db.getLevelDBData("ChronoWeek")
+      .then(value => {
+        let conf = JSON.parse(value);
+        //applying temperatures set
+        conf.week.forEach(day => {
+          day.ranges.forEach(range => {
+            for (let i = range.at; i < range.at + range.duration; i++) {
+              this.week[day.day][i] = this.getTemperatureFromMode(range.mode);
+            }
+          });
         });
-      });
 
-      //applying ice temps
-      this.week.forEach((day, d) =>
-        day.forEach((min, m) => {
-          if (min === "") {
-            this.week[d][m] = this.getTemperatureFromMode("");
-          }
-        })
-      );
-    }).catch(err=> {
-      console.log("Configuration doesn't exist, creating a new one")
-      db.addLevelDBData("ChronoWeek"), config.get("chrono")
-    })
+        //applying ice temps
+        this.week.forEach((day, d) =>
+          day.forEach((min, m) => {
+            if (min === "") {
+              this.week[d][m] = this.getTemperatureFromMode("");
+            }
+          })
+        );
+      })
+      .catch(err => {
+        console.log("Configuration doesn't exist, creating a new one");
+        db.addLevelDBData("ChronoWeek", global.CONF.get("chrono"));
+      });
   }
 
   getTemperatureFromMode(mode) {
