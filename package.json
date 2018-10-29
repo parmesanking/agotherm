@@ -4,7 +4,7 @@
   "description": "My personal clima control",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --inspect --harmony index.js",
+    "start": "node --inspect --harmony index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -21,6 +21,7 @@
     "ds18b20": "^0.1.0",
     "express": "^4.16.2",
     "http": "0.0.0",
+    "level": "^4.0.0",
     "moment": "^2.19.2",
     "morgan": "^1.9.0",
     "nconf": "^0.10.0",
