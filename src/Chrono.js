@@ -43,7 +43,7 @@ export default class Chrono {
       })
       .catch(err => {
         console.log("Configuration doesn't exist, creating a new one");
-        db.addLevelDBData("ChronoWeek", global.CONF.get("chrono"));
+        db.addLevelDBData("ChronoWeek", JSON.stringify(global.CONF.get("chrono")));
       });
   }
 

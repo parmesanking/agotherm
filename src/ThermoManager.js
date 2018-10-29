@@ -21,7 +21,7 @@ export function setWeek(req, res) {
     let conf = JSON.parse(value);
     let week = req.body;
     conf.week = week.week.sort((a, b) => a.day > b.day);
-    db.addDataToLevelDB("ChronoWeek", conf).then(res => {
+    db.addDataToLevelDB("ChronoWeek", JSON.stringify(conf).then(res => {
       if (res.success) {
         res.send(true);
       } else {
