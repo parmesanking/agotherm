@@ -23,6 +23,7 @@ export function setWeek(req, res) {
     conf.chrono.week = week.week.sort((a, b) => a.day > b.day);
     db.addLevelDBData("Chrono", JSON.stringify(conf)).then(result => {
       if (result.success) {
+        global.THERMO.chrono.loadConf()
         res.send(true);
       } else {
         res.status(500).send("Unable to store new configuration");

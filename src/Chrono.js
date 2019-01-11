@@ -7,21 +7,23 @@ let console = new SysLogger();
 debug.log = console.info.bind(console);
 
 export default class Chrono {
-  week = Array(6);
+
   constructor() {
-    //creating chrono data structure
-    for (let d = 0; d < 7; d++) {
-      this.week[d] = Array(1339);
-      for (let m = 0; m < 1440; m++) {
-        this.week[d][m] = "";
-      }
-    }
     this.loadConf();
   }
 
   loadConf() {
     db.getLevelDBData("Chrono")
       .then(value => {
+        //creating chrono data structure
+          week = Array(6);
+        for (let d = 0; d < 7; d++) {
+         this.week[d] = Array(1339);
+         for (let m = 0; m < 1440; m++) {
+           this.week[d][m] = "";
+         }
+       }
+
         let conf = JSON.parse(value);
         //applying temperatures set
         conf.chrono.week.forEach(day => {
