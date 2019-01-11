@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  ScrollView
+  ScrollView, SafeAreaView
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as thermo from "../thermoClient";

@@ -4,7 +4,7 @@
     "icon": "./controls/images/fire-station.png",
     "version": "1.0.0",
     "slug": "agotherm",
-    "sdkVersion": "23.0.0",
+    "sdkVersion": "32.0.0",
     "ios": {
       "bundleIdentifier": "com.parmesanking.agotherm"
     },

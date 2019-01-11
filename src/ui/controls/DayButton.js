@@ -17,6 +17,7 @@ const DayButton = props => {
         <ImageBackground
           style={styles.image}
           source={require("./images/calendar.png")}
+          resizeMode="contain"
         >
           <Text
             style={[styles.title, props.selected ? styles.titleSelected : null]}

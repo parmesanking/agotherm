@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
 import Clima from "./controls/Clima"
 import Setup from "./controls/Setup"
 import {TabNavigator} from 'react-navigation'
