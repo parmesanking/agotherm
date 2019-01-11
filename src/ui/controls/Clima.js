@@ -87,7 +87,7 @@ export default class Clima extends React.Component {
             <View style={[styles.button, styles[`button${this.state.orientation}`]]}>
               <Ionicons
                 name="ios-thermometer"
-                size={this.state.orientation === 'LANDSCAPE' ? 40: 44}
+                size={this.state.orientation === 'LANDSCAPE' ? 38: 44}
                 color={this.state.status === "ON" ? "green" : "red"}
                 adjustsFontSizeToFit={true}
               />

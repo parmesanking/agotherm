@@ -2,7 +2,7 @@
   "expo": {
     "name": "Agotherm",
     "icon": "./controls/images/fire-station.png",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "slug": "agotherm",
     "sdkVersion": "32.0.0",
     "ios": {
