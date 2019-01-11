@@ -16,7 +16,7 @@ export default class Chrono {
     db.getLevelDBData("Chrono")
       .then(value => {
         //creating chrono data structure
-          week = Array(6);
+        this.week = Array(6);
         for (let d = 0; d < 7; d++) {
          this.week[d] = Array(1339);
          for (let m = 0; m < 1440; m++) {
