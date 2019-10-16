@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "jest-expo": "32.0.0",
+    "jest-expo": "33.0.0",
     "react-test-renderer": "16.0.0"
   },
-    "main": "./crna-entry.js",
+  "main": "./crna-entry.js",
   "scripts": {
     "start": "expo start",
     "eject": "expo eject",
@@ -18,9 +18,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^32.0.0",
-    "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "expo": "^33.0.0",
+    "moment": "^2.24.0",
+    "react": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-navigation": "^1.0.0-beta.22"
   }
 }
