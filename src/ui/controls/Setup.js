@@ -1,15 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-  ScrollView, SafeAreaView
-} from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as thermo from "../thermoClient";
-import { setInterval } from "core-js/library/web/timers";
 import moment from "moment";
 import DayButton from "./DayButton";
 import Slot from "./Slot";
@@ -22,7 +14,7 @@ const slot4 = new Array(18).fill(false);
 export default class Setup extends React.Component {
   state = {
     day: moment().format("d"),
-    conf: null
+    conf: null,
   };
 
   onDaySelected(day) {
@@ -33,7 +25,7 @@ export default class Setup extends React.Component {
   onSlotSelected(section, slot, value) {
     if (this.state.conf != null) {
       let day = this.state.conf.chrono.week.filter(
-        d => d.day == this.state.day
+        (d) => d.day == this.state.day
       )[0];
 
       if (section == 0) {
@@ -72,7 +64,7 @@ export default class Setup extends React.Component {
           day.ranges.push({
             at: 1440 / 4 + ix * 20 - acc,
             duration: acc,
-            mode: "H"
+            mode: "H",
           });
         } else if (cur) {
           return acc + 20;
@@ -88,9 +80,9 @@ export default class Setup extends React.Component {
             ix++;
           }
           day.ranges.push({
-            at: 1440 / 4 * 2 + ix * 20 - acc,
+            at: (1440 / 4) * 2 + ix * 20 - acc,
             duration: acc,
-            mode: "H"
+            mode: "H",
           });
         } else if (cur) {
           return acc + 20;
@@ -105,9 +97,9 @@ export default class Setup extends React.Component {
             ix++;
           }
           day.ranges.push({
-            at: 1440 / 4 * 3 + ix * 20 - acc,
+            at: (1440 / 4) * 3 + ix * 20 - acc,
             duration: acc,
-            mode: "H"
+            mode: "H",
           });
         } else if (cur) {
           return acc + 20;
@@ -116,21 +108,23 @@ export default class Setup extends React.Component {
       }, 0);
 
       let week = this.state.conf.chrono.week.filter(
-        d => d.day != this.state.day
+        (d) => d.day != this.state.day
       );
       week.push(day);
       let conf = this.state.conf;
       conf.chrono.week = week;
-      thermo.doSetConf(week).then(res => res && this.setState({ conf: conf })).catch(err => console.log(err))
-      ;
+      thermo
+        .doSetConf(week)
+        .then((res) => res && this.setState({ conf: conf }))
+        .catch((err) => console.log(err));
     }
   }
 
   onGetConf() {
     thermo
       .doGetConf()
-      .then(conf => this.setState({ ...conf }))
-      .catch(err => console.log("error getting conf"));
+      .then((conf) => this.setState({ ...conf }))
+      .catch((err) => console.log("error getting conf"));
   }
   componentDidMount() {
     this.onGetConf();
@@ -138,13 +132,13 @@ export default class Setup extends React.Component {
   render() {
     if (this.state.conf != null) {
       let day = this.state.conf.chrono.week.filter(
-        d => d.day == this.state.day
+        (d) => d.day == this.state.day
       )[0];
       slot1.fill(false);
       slot2.fill(false);
       slot3.fill(false);
       slot4.fill(false);
-      day.ranges.map(range => {
+      day.ranges.map((range) => {
         let isON = false;
         for (let i = range.at; i < range.at + range.duration; i++) {
           if (!isON) {
@@ -155,17 +149,17 @@ export default class Setup extends React.Component {
               let a = i / 20;
               slot1[a] = isON;
             }
-            if (i >= 1440 / 4 && i < 1440 / 4 * 2) {
+            if (i >= 1440 / 4 && i < (1440 / 4) * 2) {
               let a = (i - 1440 / 4) / 20;
               slot2[a] = isON;
             }
-            if (i >= 1440 / 4 * 2 && i < 1440 / 4 * 3) {
-              let a = (i - 1440 / 4 * 2) / 20;
+            if (i >= (1440 / 4) * 2 && i < (1440 / 4) * 3) {
+              let a = (i - (1440 / 4) * 2) / 20;
 
               slot3[a] = isON;
             }
-            if (i >= 1440 / 4 * 3 && i < 1440) {
-              let a = (i - 1440 / 4 * 3) / 20;
+            if (i >= (1440 / 4) * 3 && i < 1440) {
+              let a = (i - (1440 / 4) * 3) / 20;
               slot4[a] = isON;
             }
             isON = false;
@@ -183,7 +177,7 @@ export default class Setup extends React.Component {
               day={i}
               label={d}
               selected={this.state.day == i}
-              onPress={d => this.onDaySelected(d)}
+              onPress={(d) => this.onDaySelected(d)}
             />
           ))}
         </View>
@@ -246,7 +240,7 @@ export default class Setup extends React.Component {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   week: {
     flexDirection: "row",
@@ -254,7 +248,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
     marginLeft: 20,
     marginRight: 20,
-    height: 60
+    height: 60,
   },
   timeslots: {
     flexDirection: "row",
@@ -262,6 +256,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
-    height: 50
-  }
+    height: 50,
+  },
 });

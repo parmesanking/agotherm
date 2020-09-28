@@ -1,8 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as thermo from "../thermoClient";
-import { setInterval } from "core-js/library/web/timers";
 import moment from "moment";
 import "moment/locale/it";
 import { Dimensions, Platform, PixelRatio } from "react-native";
@@ -26,8 +32,8 @@ export default class Clima extends React.Component {
     poller: null,
     temperature: "-",
     status: "-",
-    error: "", 
-    orientation:'LANDSCAPE'
+    error: "",
+    orientation: "LANDSCAPE",
   };
 
   componentDidMount() {
@@ -36,15 +42,17 @@ export default class Clima extends React.Component {
     this.setState({ poller });
   }
   componentWillUnmount() {
-    this.clearInterval(this.state.poller);
+    if (this.state.poller) clearInterval(this.state.poller);
   }
 
   onGetStatus = () => {
     console.log("Reading stat...");
     thermo
       .doGetStatus()
-      .then(res => this.setState({ error: "", lastCheckOn: moment(), ...res }))
-      .catch(err =>
+      .then((res) =>
+        this.setState({ error: "", lastCheckOn: moment(), ...res })
+      )
+      .catch((err) =>
         this.setState({ error: "Error reading status", lastCheckOn: moment() })
       );
   };
@@ -59,17 +67,17 @@ export default class Clima extends React.Component {
           onPress: () =>
             thermo
               .doManual(!(this.state.status === "ON"))
-              .then(res => console.log(res))
+              .then((res) => console.log(res)),
         },
-        { text: "Cancel", onPress: () => {}, style: "cancel" }
+        { text: "Cancel", onPress: () => {}, style: "cancel" },
       ]
     );
   };
 
-  _onLayout = event =>{
-    const {width, height}= event.nativeEvent.layout
-    this.setState({orientation: width>height ? 'LANDSCAPE':'PORTRAIT' })
-  }
+  _onLayout = (event) => {
+    const { width, height } = event.nativeEvent.layout;
+    this.setState({ orientation: width > height ? "LANDSCAPE" : "PORTRAIT" });
+  };
 
   render() {
     return (
@@ -79,15 +87,17 @@ export default class Clima extends React.Component {
             styles.container,
             this.state.error === ""
               ? styles.containerNoErr
-              : styles.containerErr
+              : styles.containerErr,
           ]}
           onLayout={this._onLayout}
         >
           <TouchableOpacity onPress={() => this.onToggleStatus()}>
-            <View style={[styles.button, styles[`button${this.state.orientation}`]]}>
+            <View
+              style={[styles.button, styles[`button${this.state.orientation}`]]}
+            >
               <Ionicons
                 name="ios-thermometer"
-                size={this.state.orientation === 'LANDSCAPE' ? 34: 40}
+                size={this.state.orientation === "LANDSCAPE" ? 34 : 40}
                 color={this.state.status === "ON" ? "green" : "red"}
                 adjustsFontSizeToFit={true}
               />
@@ -98,9 +108,7 @@ export default class Clima extends React.Component {
             </View>
           </TouchableOpacity>
           <Text>
-            {moment(this.state.timestamp)
-              .locale("it")
-              .format("LL LTS")}
+            {moment(this.state.timestamp).locale("it").format("LL LTS")}
           </Text>
         </SafeAreaView>
       )
@@ -112,13 +120,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   containerNoErr: {
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   containerErr: {
-    backgroundColor: "red"
+    backgroundColor: "red",
   },
   button: {
     flexDirection: "row",
@@ -128,16 +136,16 @@ const styles = StyleSheet.create({
     borderColor: "#48A0B4",
     borderRadius: 10,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: normalize(28),
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
-  buttonPORTRAIT:{
-    flex: 0.25
+  buttonPORTRAIT: {
+    flex: 0.25,
   },
-  buttonLANDSCAPE:{
-    flex: 0.35
-  }
+  buttonLANDSCAPE: {
+    flex: 0.35,
+  },
 });

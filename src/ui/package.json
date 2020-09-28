@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "jest-expo": "34.0.0",
+    "jest-expo": "^39.0.0",
     "react-test-renderer": "16.0.0"
   },
   "main": "./crna-entry.js",
@@ -18,10 +18,17 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^34.0.0",
+    "@expo/vector-icons": "^10.2.1",
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/bottom-tabs": "^5.9.0",
+    "@react-navigation/native": "^5.7.4",
+    "expo": "^39.0.0",
     "moment": "^2.24.0",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
-    "react-navigation": "^1.0.0-beta.22"
+    "react": "16.13.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.0.tar.gz",
+    "react-native-gesture-handler": "~1.7.0",
+    "react-native-reanimated": "~1.13.0",
+    "react-native-safe-area-context": "3.1.4",
+    "react-native-screens": "~2.10.1"
   }
 }

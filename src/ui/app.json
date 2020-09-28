@@ -4,12 +4,11 @@
     "icon": "./controls/images/fire-station.png",
     "version": "1.0.2",
     "slug": "agotherm",
-    "sdkVersion": "34.0.0",
     "ios": {
       "bundleIdentifier": "com.parmesanking.agotherm"
     },
     "android": {
       "package": "com.parmesanking.agotherm"
     }
-   }
+  }
 }
