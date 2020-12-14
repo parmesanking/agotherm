@@ -1,13 +1,10 @@
 import Chrono from "./Chrono";
 import Relay from "./Relay";
-import SysLogger from "ain2";
 import tempDev from "ds18b20";
 import config from "config";
 import moment from 'moment'
-import debug from 'debug'
+import _ from 'lodash'
 
-let console = new SysLogger();
-debug.log = console.info.bind(console);
 
 export default class ThermoBrain {
   constructor() {
@@ -36,13 +33,22 @@ export default class ThermoBrain {
   run() {
     if (this.chrono) {
       let targetTemp = this.chrono.getTargetTemperature();
-      debug(`Run: -> $targetTemp $Date()`);
+      //console.log(`Run: -> ${targetTemp} ${Date()}`);
 
       let tempBufLength =
         global.CONF.get("chrono").temperatureBufferMinutes *
         60 /
         (global.CONF.get("chrono").temperaturePoolTime / 1000);
-      let currTemp = tempDev.temperatureSync(config.get("thermo.thermo_id"));
+      let currTemp = config.iceTemp
+      try {
+        currTemp = tempDev.temperatureSync(config.get("thermo.thermo_id"));
+        if (!isNaN(currTemp)) { 
+          currTemp = _.round(currTemp, 2)
+        } 
+      } catch (error) {
+        console.error("Error reading temperature", error.message, error.stack)        
+      }
+
       if (this.tempBuffer.length >= tempBufLength) {
         this.tempBuffer.shift();
       }
@@ -54,12 +60,16 @@ export default class ThermoBrain {
         parseInt(this.tempBuffer.length / 2)
       );
       let avgTempRec = recentItems.reduce((a, b) => a + b) / recentItems.length;
-      debug(recentItems.length);
-      debug(avgTempRec);
+      //console.log(recentItems.length);
+      //console.log(avgTempRec);
       let tempRaising = avgTempRec >= avgTemp;
-      targetTemp >= avgTempRec ? this.relay.on() : this.relay.off();
-      debug(`Current stat: $this.relay.status() temp: $currTemp avg: $avgTemp $(tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595))`);
-      console.log(`Current stat: ${this.relay.status()} temp: ${currTemp} avg: ${avgTemp} ${(tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595))}`);
+      if (targetTemp >= avgTempRec) {
+        this.relay.on()
+      } else {
+        this.relay.off()
+      }
+      //console.log(`Current stat: $this.relay.status() temp: $currTemp avg: $avgTemp $(tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595))`);
+      console.log(`Current stat: ${this.relay.status()} target:${targetTemp } temp: ${currTemp} avg: ${avgTemp} ${(tempRaising ? String.fromCharCode(8593) : String.fromCharCode(8595))}`);
 
       this.currentTemperature = currTemp
       this.status = this.relay.status(),

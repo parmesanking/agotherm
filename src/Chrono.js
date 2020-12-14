@@ -1,10 +1,6 @@
 import moment from "moment";
-import SysLogger from "ain2";
-import debug from "debug";
 import db from "./LevelManager";
 
-let console = new SysLogger();
-debug.log = console.info.bind(console);
 
 export default class Chrono {
 
@@ -15,6 +11,7 @@ export default class Chrono {
   loadConf() {
     db.getLevelDBData("Chrono")
       .then(value => {
+        console.log(value)
         //creating chrono data structure
         this.week = Array(6);
         for (let d = 0; d < 7; d++) {
@@ -29,6 +26,7 @@ export default class Chrono {
         conf.chrono.week.forEach(day => {
           day.ranges.forEach(range => {
             for (let i = range.at; i < range.at + range.duration; i++) {
+             
               this.week[day.day][i] = this.getTemperatureFromMode(range.mode);
             }
           });
@@ -62,7 +60,7 @@ export default class Chrono {
   }
 
   getTargetTemperature() {
-    let t = moment();
+    let t = moment()
     return this.week[parseInt(t.format("d"))][
       parseInt(t.format("H")) * 60 + parseInt(t.format("m"))
     ];
